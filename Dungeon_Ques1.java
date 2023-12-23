@@ -23,26 +23,23 @@ public class Dungeon_Ques1 {
 			System.out.println("Enter The Monster Row and Column : ");
 			int monsR = sc.nextInt();
 			int monsC = sc.nextInt();
-
+			System.out.println("Position of Trigger : ");
+			int trigR = sc.nextInt(); 
+			int trigC = sc.nextInt();
+		
+		
 			int adventureMinimumSteps = Math.abs(advR - goldR) + Math.abs(advC - goldC);
 			int monsterMinimumSteps = Math.abs(monsR - goldR) + Math.abs(monsC - goldC);
-			
-			if (adventureMinimumSteps > monsterMinimumSteps)
-				System.out.println("No possible solution");
-			else {
+
+			if (adventureMinimumSteps > monsterMinimumSteps) {
+				int advTrig = Math.abs(advR - trigR) + Math.abs(advC - trigC);
+				int trigGold = Math.abs(trigR - goldR) + Math.abs(trigC - goldC);
+					System.out.println("Minimum number of steps is  : " + (advTrig + trigGold));
+
+			} else {
 				System.out.println("Minimum number of steps is  : " + adventureMinimumSteps);
-				System.out.println("Path : " );
-				for (int i = advR; i >= goldR; i--) {
-					for (int j = advC; j <= goldC; j++) {
-						System.out.print("(" + i + "," + j + ")");
-						if (i != goldR || j != goldC)
-							System.out.print("->");
-				}
-				advC = goldC;
+
 			}
-
-		}
-
 		}
 
 	}
