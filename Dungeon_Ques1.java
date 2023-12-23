@@ -26,11 +26,22 @@ public class Dungeon_Ques1 {
 
 			int adventureMinimumSteps = Math.abs(advR - goldR) + Math.abs(advC - goldC);
 			int monsterMinimumSteps = Math.abs(monsR - goldR) + Math.abs(monsC - goldC);
-			if (adventureMinimumSteps > monsterMinimumSteps){
+			
+			if (adventureMinimumSteps > monsterMinimumSteps)
 				System.out.println("No possible solution");
-			}else{
+			else {
 				System.out.println("Minimum number of steps is  : " + adventureMinimumSteps);
+				System.out.println("Path : " );
+				for (int i = advR; i >= goldR; i--) {
+					for (int j = advC; j <= goldC; j++) {
+						System.out.print("(" + i + "," + j + ")");
+						if (i != goldR || j != goldC)
+							System.out.print("->");
+				}
+				advC = goldC;
 			}
+
+		}
 
 		}
 
