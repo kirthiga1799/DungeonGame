@@ -20,8 +20,18 @@ public class Dungeon_Ques1 {
 			int goldR = sc.nextInt();
 			int goldC = sc.nextInt();
 			
-			int minimumSteps = Math.abs(goldR - advR) + Math.abs(advC - goldC);
-			System.out.println("Minimum number of steps is  : " + minimumSteps);
+			System.out.println("Enter The Monster Row and Column : ");
+			int monsR = sc.nextInt();
+			int monsC = sc.nextInt();
+
+			int adventureMinimumSteps = Math.abs(advR - goldR) + Math.abs(advC - goldC);
+			int monsterMinimumSteps = Math.abs(monsR - goldR) + Math.abs(monsC - goldC);
+			if (adventureMinimumSteps > monsterMinimumSteps){
+				System.out.println("No possible solution");
+			}else{
+				System.out.println("Minimum number of steps is  : " + adventureMinimumSteps);
+			}
+
 		}
 
 	}
