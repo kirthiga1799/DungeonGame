@@ -2,7 +2,7 @@ package dundeongame;
 
 import java.util.Scanner;
 
-public class Dungeon_Ques1 {
+public class Dungeon_Game {
 
 		public static void main(String[] args) {
 
@@ -23,24 +23,49 @@ public class Dungeon_Ques1 {
 			System.out.println("Enter The Monster Row and Column : ");
 			int monsR = sc.nextInt();
 			int monsC = sc.nextInt();
-			System.out.println("Position of Trigger : ");
-			int trigR = sc.nextInt(); 
-			int trigC = sc.nextInt();
-		
-		
-			int adventureMinimumSteps = Math.abs(advR - goldR) + Math.abs(advC - goldC);
-			int monsterMinimumSteps = Math.abs(monsR - goldR) + Math.abs(monsC - goldC);
+			
+			int[][] arr = new int[row][col];
 
-			if (adventureMinimumSteps > monsterMinimumSteps) {
-				int advTrig = Math.abs(advR - trigR) + Math.abs(advC - trigC);
-				int trigGold = Math.abs(trigR - goldR) + Math.abs(trigC - goldC);
-					System.out.println("Minimum number of steps is  : " + (advTrig + trigGold));
+        		System.out.println("Enter the number of pits: ");
+        		int pits = sc.nextInt();
+        		List<int[]> pitList = new ArrayList<>();
 
-			} else {
-				System.out.println("Minimum number of steps is  : " + adventureMinimumSteps);
+        		for (int i = 0; i < pits; i++) {
+            		System.out.println("Position of pit " + (i + 1) + " :");
+            		int x = sc.nextInt() - 1;
+            		int y = sc.nextInt() - 1;
+            		pitList.add(new int[]{x, y});
+        	}
 
-			}
-		}
+        	for (int i = advR - 1; i >= goldR - 1; i--) {
+           	for (int j = advC - 1; j < col; j++) {
+                	if (containsPit(pitList, i, j)) {
+                   	 arr[i][j] = 999;
+                    	  continue;
+                }
+                if (i == advR - 1 && j == 0)
+                    continue;
+                else if (j == 0)
+                    arr[i][j] = arr[i + 1][j] + 1;
+                else if (i == advR - 1)
+                    arr[i][j] = arr[i][j - 1] + 1;
+                else
+                    arr[i][j] = Math.min(arr[i + 1][j], arr[i][j - 1]) + 1;
+            }
+        }
 
+        if (arr[goldR - 1][goldC - 1] >= 999)
+            System.out.println("No possible solution");
+        else
+            System.out.println("Minimum number of steps: " + arr[goldR - 1][goldC - 1]);
+    }
+
+    private static boolean containsPit(List<int[]> pitList, int x, int y) {
+        for (int[] pit : pitList) {
+            if (pit[0] == x && pit[1] == y) {
+                return true;
+            }
+        }
+        return false;
 	}
-
+}
