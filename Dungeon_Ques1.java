@@ -20,9 +20,7 @@ public class Dungeon_Game {
 			int goldR = sc.nextInt();
 			int goldC = sc.nextInt();
 			
-			System.out.println("Enter The Monster Row and Column : ");
-			int monsR = sc.nextInt();
-			int monsC = sc.nextInt();
+			
 			
 			int[][] arr = new int[row][col];
 
