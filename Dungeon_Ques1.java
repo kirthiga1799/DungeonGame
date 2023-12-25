@@ -42,38 +42,41 @@ public class Dungeon_Game {
 			int pitC = sc.nextInt();
 			pitList.add(new int[] { pitR, pitC });
 		}
+ int[][] stepsArray = new int[row][col];
 
-		for (int i = advR - 1; i >= goldR - 1; i--) {
-			for (int j = advC; j < col; j++) {
-				if (containsPit(pitList, i, j)) {
-					arr[i][j] = 999;
-					continue;
-				}
-				if (i == advR - 1 && j == 0)
-					continue;
-				else if (j == 0)
-					arr[i][j] = arr[i + 1][j] + 1;
-				else if (i == advR - 1)
-					arr[i][j] = arr[i][j - 1] + 1;
-				else
-					arr[i][j] = Math.min(arr[i + 1][j], arr[i][j - 1]) + 1;
-			}
-		}
+        for (int i = advR - 1; i >= goldR - 1; i--) {
+            for (int j = advC; j < col; j++) {
+                if (containsPit(pitList, i, j) || (i == triggerR - 1 && j == triggerC - 1)) {
+                    stepsArray[i][j] = 999;
+                    continue;
+                }
+                if (i == advR - 1 && j == 0)
+                    continue;
+                else if (j == 0)
+                    stepsArray[i][j] = stepsArray[i + 1][j] + 1;
+                else if (i == advR - 1)
+                    stepsArray[i][j] = stepsArray[i][j - 1] + 1;
+                else
+                    stepsArray[i][j] = Math.min(stepsArray[i + 1][j], stepsArray[i][j - 1]) + 1;
+            }
+        }
 
-		int monsterMinSteps = Math.abs(monsR - goldR) + Math.abs(monsC - goldC);
+        int monsterMinSteps = Math.abs(monsR - triggerR) + Math.abs(monsC - triggerC);
+        int triggerToGoldSteps = Math.abs(triggerR - goldR) + Math.abs(triggerC - goldC);
 
-		if (monsterMinSteps < arr[goldR - 1][goldC - 1]) {
-			System.out.println("No possible solution ");
-		} else
-			System.out.println("Minimum number of steps : " + arr[goldR - 1][goldC - 1]);
-	}
+        int totalSteps = stepsArray[monsR - 1][monsC - 1] + monsterMinSteps + triggerToGoldSteps;
 
-	private static boolean containsPit(List<int[]> pitList, int x, int y) {
-		for (int[] pit : pitList) {
-			if (pit[0] == x && pit[1] == y) {
-				return true;
-			}
-		}
-		return false;
-	}
+        System.out.println("Minimum number of steps: " + totalSteps);
+    }
+
+    private static boolean containsPit(List<int[]> pitList, int x, int y) {
+        for (int[] pit : pitList) {
+            if (pit[0] == x && pit[1] == y) {
+                return true;
+            }
+        }
+        return false;
+    }
+    
+
 }
